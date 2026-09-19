@@ -1,0 +1,41 @@
+<%- include("partials/header.ejs") %>
+
+<section class="editor-section">
+  <h1 class="editor-title">
+    <%= locals.post ? "Edit Essay" : "Write a New Essay" %>
+  </h1>
+
+  <form action="<%= locals.post ? '/edit/' + post.id : '/add' %>" method="POST" class="post-form">
+    
+    <div class="form-group">
+      <input 
+        type="text" 
+        name="title" 
+        class="input-title" 
+        placeholder="Title of your post..." 
+        value="<%= locals.post ? post.title : '' %>" 
+        required 
+        autocomplete="off"
+      >
+    </div>
+
+    <div class="form-group">
+      <textarea 
+        name="content" 
+        class="input-content" 
+        placeholder="Write your technical thoughts..." 
+        rows="12" 
+        required
+      ><%= locals.post ? post.content : '' %></textarea>
+    </div>
+
+    <div class="form-actions">
+      <a href="/" class="btn-draft" style="text-decoration: none; display: inline-flex; align-items: center;">Cancel</a>
+      <button type="submit" class="btn-publish">
+        <%= locals.post ? "Update" : "Publish" %>
+      </button>
+    </div>
+  </form>
+</section>
+
+<%- include("partials/footer.ejs") %>

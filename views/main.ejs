@@ -1,0 +1,47 @@
+<%- include("partials/header.ejs") %>
+
+<div class="blog-container">
+
+  <section class="hero-section">
+    <h1 class="hero-tagline">
+      Thoughts, hacks, and technical essays.<br>
+      Written by a developer, for developers.
+    </h1>
+  </section>
+
+
+  <section class="posts-list">
+    <% if (locals.posts && posts.length > 0) { %>
+      <% posts.forEach((post) => { %>
+        <article class="post-card">
+          <h2 class="post-title">
+            <a href="/post/<%= post.id %>"><%= post.title %></a>
+          </h2>
+          
+          <div class="post-meta">
+            <span><%= post.date || "Sept 2026" %></span>
+            <span class="meta-dot">•</span>
+            <span><%= post.readTime || "4 min read" %></span>
+          </div>
+
+          <p class="post-excerpt">
+            <%= post.content.length > 150 ? post.content.substring(0, 150) + "..." : post.content %>
+          </p>
+
+          <div class="post-actions">
+            <a href="/edit/<%= post.id %>" class="action-link">Edit</a>
+            <form action="/delete/<%= post.id %>" method="POST" class="inline-form">
+              <button type="submit" class="action-btn-danger">Delete</button>
+            </form>
+          </div>
+        </article>
+      <% }); %>
+    <% } else { %>
+      <div class="empty-state">
+        <p>No essays published yet. Click <strong>+ New Post</strong> to write your first one.</p>
+      </div>
+    <% } %>
+  </section>
+</div>
+
+<%- include("partials/footer.ejs") %>
